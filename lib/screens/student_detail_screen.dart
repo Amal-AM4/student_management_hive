@@ -10,8 +10,16 @@ class StudentDetailScreen extends StatelessWidget {
 
   StudentDetailScreen({required this.index, required this.student});
 
+  final _nameController = TextEditingController();
+  final _ageController = TextEditingController();
+  final _courseController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    _nameController.text = student.name;
+    _ageController.text = student.age.toString();
+    _courseController.text = student.course;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -25,17 +33,38 @@ class StudentDetailScreen extends StatelessWidget {
           padding: EdgeInsets.all(16.0),
           child: Column(
             children: [
-              TextField(decoration: InputDecoration(labelText: 'Name')),
               TextField(
+                controller: _nameController,
+                decoration: InputDecoration(labelText: 'Name'),
+              ),
+              TextField(
+                controller: _ageController,
                 decoration: InputDecoration(labelText: 'Age'),
                 keyboardType: TextInputType.number,
               ),
-              TextField(decoration: InputDecoration(labelText: 'Course')),
+              TextField(
+                controller: _courseController,
+                decoration: InputDecoration(labelText: 'Course'),
+              ),
               SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ElevatedButton(onPressed: () {}, child: Text('Update')),
+                  ElevatedButton(
+                    onPressed: () {
+                      final newStudent = StudentModel(
+                        name: _nameController.text,
+                        age: int.parse(_ageController.text),
+                        course: _courseController.text,
+                      );
+
+                      Hive.box<StudentModel>(
+                        'studentsBox',
+                      ).putAt(index, newStudent);
+                      Navigator.pop(context);
+                    },
+                    child: Text('Update'),
+                  ),
                   ElevatedButton(
                     onPressed: () {
                       Hive.box<StudentModel>('studentsBox').deleteAt(index);
