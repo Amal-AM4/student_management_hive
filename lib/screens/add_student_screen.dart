@@ -32,36 +32,38 @@ class AddStudentScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.blue,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _nameController,
-              decoration: InputDecoration(labelText: 'Name'),
-            ),
-            TextField(
-              controller: _ageController,
-              decoration: InputDecoration(labelText: 'Age'),
-              keyboardType: TextInputType.number,
-            ),
-            TextField(
-              controller: _courseController,
-              decoration: InputDecoration(labelText: 'Course'),
-            ),
-            SizedBox(height: 20.0),
-            OutlinedButton(
-              onPressed: () => addStudent(context),
-              child: Text('Add Student'),
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(
-                  color: Colors.blue,
-                  width: 2,
-                ), // Blue border with a width of 2
-                foregroundColor: Colors.blue, // Text color
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              TextField(
+                controller: _nameController,
+                decoration: InputDecoration(labelText: 'Name'),
               ),
-            ),
-          ],
+              TextField(
+                controller: _ageController,
+                decoration: InputDecoration(labelText: 'Age'),
+                keyboardType: TextInputType.number,
+              ),
+              TextField(
+                controller: _courseController,
+                decoration: InputDecoration(labelText: 'Course'),
+              ),
+              SizedBox(height: 20.0),
+              OutlinedButton(
+                onPressed: () => addStudent(context),
+                child: Text('Add Student'),
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(
+                    color: Colors.blue,
+                    width: 2,
+                  ), // Blue border with a width of 2
+                  foregroundColor: Colors.blue, // Text color
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
