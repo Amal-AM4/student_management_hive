@@ -36,7 +36,18 @@ class StudentDetailScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(onPressed: () {}, child: Text('Update')),
-                  ElevatedButton(onPressed: () {}, child: Text('Delete')),
+                  ElevatedButton(
+                    onPressed: () {
+                      Hive.box<StudentModel>('studentsBox').deleteAt(index);
+                      print('POS: $index');
+                      Navigator.pop(context);
+                    },
+                    child: Text('Delete'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
                 ],
               ),
             ],
